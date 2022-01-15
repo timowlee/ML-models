@@ -5,7 +5,6 @@ from base import BaseTrainer
 from utils import inf_loop, MetricTracker
 import torch.nn as nn
 
-# Trainer_AE需要安排编码器和分类器，所以我们将它从普通Trainer中独立开来
 class Trainer_AE(BaseTrainer):
     """
     Trainer class
@@ -47,10 +46,8 @@ class Trainer_AE(BaseTrainer):
 
             self.optimizer.zero_grad()
             decoded, output = self.model(data)
-            # 计算两个loss，这个为分类器loss
             loss_1 = criterion_0(output, target)
             input_data = data.view(data.size(0), -1)
-            # 这个为编码器loss
             loss_0 = criterion_1(decoded, input_data)
             loss = loss_0 + loss_1
             loss.backward()
