@@ -4,7 +4,7 @@ define training set and test set,
 
 ```
 
-data_dir: "../../Railway wheel flat dynamic data"，
+data_dir: "../../data"，
 
 data_balance: 0,
 
