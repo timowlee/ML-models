@@ -1,0 +1,89 @@
+{
+    "name": "ESZUEG",
+    "n_gpu": 1,
+    "arch": {
+        "type": "DIAE",
+        "args": {}
+    },
+    "data_loader": {
+        "type": "Standard_DataLoader",
+        "args": {
+            "data_dir": "../../data/",
+            "data_balance": 0,
+            "data_normalization": true,
+            "train_selected": [
+                {
+                    "dataset": "ESZUEG",
+                    "speed": [
+                        "v65v75",
+                        "v75v85",
+                        "v85v95",
+                        "v95v105"
+                    ]
+                }
+            ],
+            "test_selected": [
+                {
+                    "dataset": "ESZUEG",
+                    "speed": [
+                        "v25v35",
+                        "v35v45",
+                        "v55v65"
+                    ]
+                },
+                {
+                    "dataset": "LEILA",
+                    "speed": [
+                        "v65v75",
+                        "v75v85",
+                        "v85v95",
+                        "v95v105"
+                    ]
+                },
+                {
+                    "dataset": "LEILA",
+                    "speed": [
+                        "v25v35",
+                        "v35v45",
+                        "v55v65"
+                    ]
+                }
+            ],
+            "batch_size": 128,
+            "shuffle": true,
+            "validation_split": 0.2,
+            "num_workers": 2
+        }
+    },
+    "test_batch_size": 512,
+    "optimizer": {
+        "type": "Adam",
+        "args": {
+            "lr": 0.001,
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "loss": [
+        "DIAE_loss"
+    ],
+    "metrics": [
+        "accuracy"
+    ],
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 50,
+            "gamma": 0.1
+        }
+    },
+    "trainer": {
+        "epochs": 5,
+        "save_dir": "saved/",
+        "save_period": 1,
+        "verbosity": 2,
+        "monitor": "max val_accuracy",
+        "early_stop": 10,
+        "tensorboard": true
+    }
+}
