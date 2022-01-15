@@ -23,7 +23,6 @@ class Trainer_AE_Encoder(BaseTrainer):
         else:
             # iteration-based training
             self.data_loader = inf_loop(data_loader)
-            # modi: 编码器加上20个
             self.len_epoch = len_epoch + self.epoch_encoding
 
         self.valid_data_loader = valid_data_loader
@@ -41,7 +40,6 @@ class Trainer_AE_Encoder(BaseTrainer):
         :param epoch: Integer, current training epoch.
         :return: A log that contains average loss and metric in this epoch.
         """
-        # 编码器训练
         if epoch < self.epoch_encoding:
             for param in self.model.parameters():
                 param.requires_grad = False
