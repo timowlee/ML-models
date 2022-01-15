@@ -56,10 +56,8 @@ def main(config):
     with torch.no_grad():
         for i, (data, target) in enumerate(tqdm(data_loader)):
             data, target = data.to(device), target.to(device)
-            # 如果是DAE，取第二个为output，忽略第一个，第一个是decoder的结果，在test阶段不会用
             if "DAE" in config['arch']['type'] or "Encoding" in config['arch']['type']:
                 _, output = model(data)
-            # 如果不是DAE，网络直接输出output
             elif "DIAE" in config['arch']['type']:
                 data_pred, output, w_loss, l_loss = model(data)
             else:
